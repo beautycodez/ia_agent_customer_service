@@ -1,0 +1,71 @@
+{
+  "mismatch_profile_document": {
+    "domain": "documents",
+    "case_name": "Profile and document mismatch",
+    "guidance": [
+      "Explain clearly which information does not match",
+      "Do not assume which information is correct",
+      "Ask the supplier to confirm the correct details",
+      "Request updated documentation if required",
+      "Do not proceed with verification until confirmation is received"
+    ]
+  },
+
+  "duplicate_profile": {
+    "domain": "profile",
+    "case_name": "Duplicate profile detected",
+    "guidance": [
+      "Inform the supplier that a duplicate profile exists",
+      "Provide the Graphite ID and legal name",
+      "Ask which profile should remain active",
+      "Request confirmation of the registration number",
+      "Do not merge profiles without explicit confirmation"
+    ]
+  },
+
+  "bank_approval_pending": {
+    "domain": "bank",
+    "case_name": "Bank approval pending and approver has access",
+    "guidance": [
+      "Explain that bank approval must be completed by a second admin user",
+      "Clarify that the current user cannot approve their own bank details",
+      "Create blank space or placeholder in the email for the name and email of the approver",
+      "Explain that the approver should log in to graphiteConnect with their email address. Otherwise, the task cannot be completed"
+    ]
+  },
+
+  "bank_approval_pending_invitation_sent": {
+    "domain": "bank",
+    "case_name": "Bank approval pending and invitation sent to supplier",
+    "guidance": [
+      "Explain that bank approval must be completed by a second admin user",
+      "Clarify that the current user cannot approve their own bank details",
+      "Create blank space or placeholder in the email for the name and email of the approver",
+      "Explain that an invitation has been sent to the approver inbox or spam",
+      "Explain that the invitation creates login credentials for the approver",
+      "Clarify that the invitation comes from no-reply@graphiteconnect.com"
+    ]
+  },
+
+  "bank_approval_no_second_user": {
+    "domain": "bank",
+    "case_name": "There is no second user to approve",
+    "guidance": [
+      "Explain that bank approval must be completed by a second admin user",
+      "Clarify that the current user cannot approve their own bank details",
+      "Explain how to add a second user",
+      "Request to set up banking permissions for the second user",
+      "Guide how to complete the bank approval task"
+    ]
+  },
+
+  "share_bank": {
+    "domain": "bank",
+    "case_name": "Share Bank with Customer",
+    "guidance": [
+      "Explain that the supplier has added the bank account, but they have not shared it with the customer",
+      "Create steps for supplier to log in to graphiteConnect, click on view profile, click on banking center, and share the bank account by clicking on manage sharing",
+      "Clarify that after the bank account is shared, the customer will have visibility of the bank account as normal"
+    ]
+  }
+}
