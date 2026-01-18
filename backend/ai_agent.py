@@ -1,7 +1,7 @@
 from openai import OpenAI
 from dotenv import load_dotenv
 import os
-from kb_search import search_kb
+from kb_search import search_kb, KB_GENERAL
 import json
 # Cargar variables desde el archivo .env
 load_dotenv()
@@ -10,11 +10,8 @@ load_dotenv()
 OPENAI_API_KEY = os.getenv("API_KEY")
 
 #---------------------------------
-def load_resolution_guides():
-    with open("resolution_guides.json", "r", encoding="utf-8") as f:
-        return json.load(f)
 
-RESOLUTION_GUIDES = load_resolution_guides()
+
 
 #-----------------------------------
 
@@ -48,6 +45,18 @@ If knowledge base information is provided:
 Output:
 - A ready-to-send support email
 """
+GENERIC_RESOLUTION_GUIDANCE = """
+Case: General support request (no specific case identified)
+
+Instructions:
+- Carefully analyze the email thread and problem description
+- Identify the most likely issue based on the context
+- Use the provided Knowledge Base articles as guidance
+- Provide clear next steps to the supplier or customer
+- If information is missing, request clarification politely
+- Do not assume details that are not explicitly stated
+"""
+
 #------------------------------------------------------------------------
 def generate_support_reply(
     problem_description,
@@ -83,62 +92,37 @@ Generate the support reply email.
 
 
 #--------------------------------------------------------------------------
-case_key = "bank_approval_pending_invitation_sent"
 
-kb_entry = search_kb(case_key=case_key)
 
-kb_context = ""
+def get_kb_context(case_key=None, max_articles=3):
+    """
+    Returns a formatted KB context string.
+    Uses case-specific KB if available, otherwise falls back to general KB.
+    """
 
-if kb_entry and "articles" in kb_entry:
-    kb_context = "\nKnowledge Base references:\n"
+    kb_entry = search_kb(case_key=case_key)
 
-    for i, article in enumerate(kb_entry["articles"], 1):
-        kb_context += f"""
+    # Fallback to general KB
+    if not kb_entry:
+        kb_entry = KB_GENERAL
+
+    if "articles" not in kb_entry:
+        return ""
+
+    # Sort articles by weight (if present)
+    articles = sorted(
+        kb_entry["articles"],
+        key=lambda a: a.get("weight", 1),
+        reverse=True
+    )
+
+    context = "\nKnowledge Base references:\n"
+
+    for i, article in enumerate(articles[:max_articles], 1):
+        context += f"""
 {i}. {article['title']}
 Summary: {article['summary']}
 Source: {article['url']}
 """
 
-
-problem_description = """ pending bank approval, explain to the supplier how to complete the bank approval task
-"""
-email_thread = """Hi 
-
-Are you able to let me know what is missing on this vendors profile for it to be completed please?
-
-Canal & River Trust GB153188 - 100021747
-
-Kind regards,
-
-
-"""
-
-if case_key in RESOLUTION_GUIDES:
-    selected_case = RESOLUTION_GUIDES[case_key]
-
-    resolution_guidance = f"""
-Case: {selected_case['case_name']}
-
-Resolution steps:
-- """ + "\n- ".join(selected_case["guidance"])
-
-else:
-    resolution_guidance = """
-Case: Unknown issue
-
-Instructions:
-- Politely acknowledge the request
-- Ask for clarification
-- Do not assume or resolve
-"""
-
-reply = generate_support_reply(
-    problem_description,
-    email_thread,
-    resolution_guidance,
-    kb_context
-)
-
-print("\n--- GENERATED SUPPORT REPLY ---\n")
-print(reply)
-
+    return context

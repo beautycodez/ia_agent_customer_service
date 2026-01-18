@@ -1,0 +1,147 @@
+{
+  "mismatch_profile_document": {
+    "domain": "documents",
+    "case_name": "Profile and document mismatch",
+    "guidance": [
+      "Explain clearly which information does not match",
+      "Do not assume which information is correct",
+      "Ask the supplier to confirm the correct details",
+      "Request updated documentation if required",
+      "Do not proceed with verification until confirmation is received"
+    ]
+  },
+
+  "duplicate_profile": {
+    "domain": "profile",
+    "case_name": "Duplicate profile detected",
+    "guidance": [
+      "Inform the supplier that a duplicate profile exists",
+      "Provide the Graphite ID and legal name",
+      "Ask which profile should remain active",
+      "Request confirmation of the registration number",
+      "Do not merge profiles without explicit confirmation"
+    ]
+  },
+
+  "bank_approval_pending": {
+    "domain": "bank",
+    "case_name": "Bank approval pending and approver has access",
+    "guidance": [
+      "Explain that bank approval must be completed by a second admin user",
+      "Clarify that the current user cannot approve their own bank details",
+      "Create blank space or placeholder in the email for the name and email of the approver",
+      "Explain that the approver should log in to graphiteConnect with their email address. Otherwise, the task cannot be completed"
+    ]
+  },
+
+  "bank_approval_pending_invitation_sent": {
+    "domain": "bank",
+    "case_name": "Bank approval pending and invitation sent to supplier",
+    "guidance": [
+      "Explain that bank approval must be completed by a second user with banking permissions",
+      "Clarify that the current user cannot approve their own bank details",
+      "Create blank space or placeholder in the email for the name and email of the approver",
+      "Explain that an invitation has been sent to the approver inbox or spam",
+      "Explain that the invitation creates login credentials for the approver",
+      "Clarify that the invitation comes from no-reply@graphiteconnect.com"
+    ]
+  },
+
+  "bank_approval_no_second_user": {
+    "domain": "bank",
+    "case_name": "There is no second user to approve",
+    "guidance": [
+      "Explain that bank approval must be completed by a second user with banking permissions",
+      "Clarify that the current user cannot approve their own bank details",
+      "Explain how to add a second user",
+      "Request to set up banking permissions for the second user",
+      "Guide how to complete the bank approval task"
+    ]
+  },
+
+  "share_bank": {
+    "domain": "bank",
+    "case_name": "Share Bank with Customer",
+    "guidance": [
+      "Explain that the supplier has added the bank account",
+      "Explain that the supplier has not shared the bank account with the customer",
+      "Create steps for supplier to share the bank account in the Connection profile view",
+      "Clarify that after the bank account is shared, the customer will have visibility of the bank account as normal"
+    ]
+  },
+   "2FA_reset": {
+    "domain": "2FA",
+    "case_name": "Reset the 2FA method",
+    "guidance": [
+      "Clarify that we can help reset the 2FA method",
+      "A personal verification is needed before resetting the 2FA method",
+      "Ask for the user's full name and email address",
+      "Request the supplier to wait until we send a QR code/Link for verification"
+    ]
+  },
+  "Veriff_refusal": {
+    "domain": "Veriff",
+    "case_name": "Veriff explanation",
+    "guidance": [
+      "Empathize with the supplier",
+      "Explain why is it important to complete the verification process",
+      "Offer a manual verification over a video call",
+      "Clarify that manual verification requires the supplier to only share an ID card over the camera",
+      "Ask the supplier to book a video call with the calendly link",
+      "Create blank space or placeholder in the email for the calendly link"
+    ]
+  },
+  "Task_completed": {
+    "domain": "Tasks",
+    "case_name": "The task was completed but not cleared out",
+    "guidance": [
+      "Acknoledge the issue",
+      "Explain the task was completed, but not cleared out",
+      "Confirmed that I have already cleared out the task"
+    ]
+  },
+  
+  "add_new_users": {
+    "domain": "Add Users",
+    "case_name": "Add new users",
+    "guidance": [
+      "Acknoledge the issue",
+      "Explain that only users with Admin users permissions can add other users"
+    ]
+  },
+  "password_update": {
+    "domain": "password",
+    "case_name": "Password reset steps",
+    "guidance": [
+      "Acknoledge the issue",
+      "Share the steps on how to reset the password",
+      "Explain that the password reset will work successfully if the email address exists in graphiteConnect records"
+    ]
+  },
+  "w9_outdated": {
+    "domain": "W9",
+    "case_name": "outdated w9 form",
+    "guidance": [
+      "Explain that the W9 form should be version March 2024 or later",
+      "Confirm that the current W9 form is an outdated version",
+      "Ask the vendor to upload an updated W9 form",
+      "Share the W9 document pdf link"
+    ]
+  },
+  
+  "w9_no_individual_issue": {
+    "domain": "W9",
+    "case_name": "outdated w9 form",
+    "guidance": [
+      "Explain line one of the W9 form is for the company name",
+      "Explain that only if supplier has a DBA, should be enter in line 2",
+      "Explain that the EIN should be provided",
+      "Explain that the document must be dated and signed",
+      "Do not explain all the rules before only the necessary according to the problem_description input",
+      "Ask the vendor to upload an updated W9 form"
+    ]
+  }
+
+}
+
+
