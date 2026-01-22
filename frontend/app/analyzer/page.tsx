@@ -11,6 +11,7 @@ export default function CaseAnalyzerPage() {
   const [generatedReply, setGeneratedReply] = useState<string | null>(null);
   const [selectedCaseKey, setSelectedCaseKey] = useState<string | null>(null);
   const [step, setStep] = useState<"edit" | "select_case" | "reply">("edit");
+  const [readyForResolution, setReadyForResolution] = useState(false);
 
   const isReadyForResolution = () => {
     if (!analysis) return false;
@@ -24,8 +25,8 @@ export default function CaseAnalyzerPage() {
       supplier?.registration_number &&
       customer?.customer_company &&
       customer?.email;
-
-    return Boolean(requiredFieldsFilled);
+    
+    return Boolean(requiredFieldsFilled) && requiredFieldsFilled? setReadyForResolution(true):false;
   };
 
   const confirmAndUpdateSummary = async () => {
@@ -46,6 +47,7 @@ export default function CaseAnalyzerPage() {
 
       // Avanzar al paso de selección de case key
       setStep("select_case");
+      isReadyForResolution();
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -307,7 +309,7 @@ export default function CaseAnalyzerPage() {
                   : "text-red-600"
               }
             >
-              {analysis.ready_for_resolution ? "Yes" : "No"}
+              {readyForResolution ? "Yes" : "No"}
             </p>
           </section>
           {/* button to finalize case */}
