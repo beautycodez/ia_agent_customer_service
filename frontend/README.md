@@ -35,11 +35,5 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
+https://trello.com/b/H0EGqqI8/ia-customer-service-agent
 
-Next steps:
-- Allow the programm to submit information even though there are missing fields
-- Injectar pasos al resolution guidance
-- Hacer que el suggested key case se obtenga de la lista json y que agarre la mejor coincidencia
-- Revisar el analisis de datos y quitar los no relevantes y crear los mas relevantes
-- Mejorar el prompt con cosas que el agente no debe ofrecer e.g. Once verification is completed, we can assist with updating banking information and adding Jordan Combs as an admin with banking access.
-- Check list de modelos que dan buena respuesta y cuales aun necesitan mejorar

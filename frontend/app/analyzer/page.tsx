@@ -53,6 +53,7 @@ export default function CaseAnalyzerPage() {
     }
   };
   const generateReply = async () => {
+    setLoading(true)
     const formData = new FormData();
 
     formData.append("problem_description", analysis.case_summary);
@@ -66,10 +67,11 @@ export default function CaseAnalyzerPage() {
 
     const data = await res.json();
     setGeneratedReply(data.reply);
+    setLoading(false);
   };
 
   const analyzeEmail = async () => {
-    setLoading(true);
+    setLoading(true); // Muestra un mensaje en donde la informacion esta cargando
     setError(null);
 
     try {
@@ -86,9 +88,10 @@ export default function CaseAnalyzerPage() {
 
       const data = await res.json();
 
-      // 🔎 Soporta ambos formatos: plano o { analysis }
+      // 🔎 Soporta ambos formatos: plano o { analysis } 
       const backendAnalysis = data.analysis ?? data;
-
+      // Crea un esqueleto para que la informacion de backendAnalysis pueda ingresar sin 
+      // Errores en caso la IA no encuentre un campo especifico.
       const normalizedAnalysis = {
         case_summary: "",
         generated_problem_description: "",
@@ -110,7 +113,7 @@ export default function CaseAnalyzerPage() {
         confidence_notes: {},
         suggested_case_keys: [],
         ready_for_resolution: false,
-        ...backendAnalysis, // 👈 seguro ahora
+        ...backendAnalysis, // 👈 seguro ahora, el backend sobreescribe la info en el esqueleto y si no hay campos encontrados por la IA el esqueleto ya ha definido los valores por default para que el programa no se rompa
       };
 
       setAnalysis(normalizedAnalysis);
@@ -317,19 +320,13 @@ export default function CaseAnalyzerPage() {
             </div>
             <button
               onClick={confirmAndUpdateSummary}
-              disabled={finalizing || !isReadyForResolution()}
+              disabled={finalizing}
               className="bg-green-600 text-white px-4 py-2 rounded"
             >
               Confirm & Update Summary
             </button>
 
-            {/* <button
-              onClick={finalizeCase}
-              disabled={finalizing || !isReadyForResolution()}
-              className="bg-green-600 text-white px-4 py-2 rounded disabled:opacity-50"
-            >
-              {finalizing ? "Finalizing..." : "Confirm & Finalize"}
-            </button> */}
+      
           </section>
 
           {step === "select_case" && (
@@ -381,6 +378,7 @@ export default function CaseAnalyzerPage() {
               </button>
             </section>
           )}
+          {loading && <p>Creating a wonderful reply...</p>}
 
           {generatedReply && (
             <section className="border rounded p-4 bg-gray-50">
