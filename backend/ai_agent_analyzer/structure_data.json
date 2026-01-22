@@ -1,0 +1,26 @@
+{
+  "case_summary": "",
+  "generated_problem_description": "",
+  "supplier_entities": {
+    "contact_name": null,
+    "company_name": null,
+    "email": null,
+    "graphite_id": null,
+    "registration_number": null
+  },
+  "customer_entities": {
+    "customer_company": null,
+    "contact_name": null,
+    "email": null
+  },
+  "questions": [],
+  "detected_issues": [],
+  "missing_information": [],
+  "confidence_notes": {
+  "supplier_entities.contact_name": "Not found in email",
+  "supplier_entities.graphite_id": "High confidence",
+  "customer_entities.email": "Extracted directly from signature"
+},
+  "suggested_case_keys": [],
+  "ready_for_resolution": false
+}

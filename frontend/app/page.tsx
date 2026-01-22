@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import ReactMarkdown from "react-markdown";
 
 export default function Page() {
   const [caseKey, setCaseKey] = useState("profile_mismatch");
@@ -92,9 +93,19 @@ export default function Page() {
   <option value="w9_outdated">
     Outdated W9 form
   </option>
+  
+  <option value="Others">
+    Others
+  </option>
 
   <option value="w9_no_individual_issue">
     W9 – individual / company info issue
+  </option>
+  <option value="validation_bank_invalid_document">
+    validation error bank invalid document
+  </option>
+  <option value="status">
+    Status
   </option>
 </select>
 

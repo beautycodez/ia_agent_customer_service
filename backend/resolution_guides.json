@@ -26,11 +26,20 @@
   "bank_approval_pending": {
     "domain": "bank",
     "case_name": "Bank approval pending and approver has access",
-    "guidance": [
-      "Explain that bank approval must be completed by a second admin user",
-      "Clarify that the current user cannot approve their own bank details",
-      "Create blank space or placeholder in the email for the name and email of the approver",
-      "Explain that the approver should log in to graphiteConnect with their email address. Otherwise, the task cannot be completed"
+    "guidance": ["First, determine whether the person you are replying to is the bank approver or another user.",
+    
+    "If the user is NOT the approver:",
+    "- Explain that the bank approval must be completed by a second user.",
+    "- Clarify that the user who added the bank account cannot approve their own bank details.",
+    "- Ask them to share the name and email address of the approver (leave placeholders in the email).",
+    
+    "If the user IS the approver:",
+    "- Ask them to log in using the email address that has access.",
+    "- Instruct them to complete the pending bank approval task.",
+    
+    "Include an embedded link to the knowledge base article explaining how to complete the bank approval.",
+    
+    "Keep the tone clear, professional, and supportive. Do not mention internal systems or internal reasoning."
     ]
   },
 
@@ -43,7 +52,8 @@
       "Create blank space or placeholder in the email for the name and email of the approver",
       "Explain that an invitation has been sent to the approver inbox or spam",
       "Explain that the invitation creates login credentials for the approver",
-      "Clarify that the invitation comes from no-reply@graphiteconnect.com"
+      "Clarify that the invitation comes from no-reply@graphiteconnect.com",
+      "Share an embedded link to the article how to complete the bank approval"
     ]
   },
 
@@ -69,26 +79,34 @@
       "Clarify that after the bank account is shared, the customer will have visibility of the bank account as normal"
     ]
   },
+  "validation_bank_invalid_document": {
+    "domain": "validation",
+    "case_name": "The document provided is not valid",
+    "guidance": [
+      "Explain that the customer requires a valid bank document issued by the bank",
+      "Explain that customer cannot process invoices with a non valid bank document",
+      "Share the steps on how to upload a new bank document"
+    ]
+  },
    "2FA_reset": {
     "domain": "2FA",
     "case_name": "Reset the 2FA method",
     "guidance": [
       "Clarify that we can help reset the 2FA method",
-      "A personal verification is needed before resetting the 2FA method",
-      "Ask for the user's full name and email address",
+      "Explain that a personal verification is needed when resetting the 2FA",
+      "Ask for the user's full name and email address who will complete the verification",
       "Request the supplier to wait until we send a QR code/Link for verification"
     ]
   },
-  "Veriff_refusal": {
-    "domain": "Veriff",
+  "veriff_refusal": {
+    "domain": "veriff",
     "case_name": "Veriff explanation",
     "guidance": [
       "Empathize with the supplier",
       "Explain why is it important to complete the verification process",
       "Offer a manual verification over a video call",
       "Clarify that manual verification requires the supplier to only share an ID card over the camera",
-      "Ask the supplier to book a video call with the calendly link",
-      "Create blank space or placeholder in the email for the calendly link"
+      "Ask the supplier to book a video call with the calendly link https://calendly.com/graphiteconnect-angello-ruiz-landauro/angello-ruiz"
     ]
   },
   "Task_completed": {
@@ -100,13 +118,36 @@
       "Confirmed that I have already cleared out the task"
     ]
   },
+  "task_pending": {
+    "domain": "tasks",
+    "case_name": "Outstanding tasks",
+    "guidance": [
+      "Explain that there are outstanding tasks in graphiteConnect",
+      "Share the steps on how to complete tasks",
+      "Reference the article: Accepting an invitation from your customer (the section - complete required questions)"
+    ]
+  },
   
   "add_new_users": {
-    "domain": "Add Users",
+    "domain": "add Users",
     "case_name": "Add new users",
     "guidance": [
       "Acknoledge the issue",
-      "Explain that only users with Admin users permissions can add other users"
+      "Explain that only users with Admin users permissions can add other users",
+      "Prompt the user to can contact the admins",
+      "Share an embedded link Adding new users from the knowledge base articles",
+      "Share an embedded link Roles & Permissions from the knowledge base articles"
+    ]
+  },
+  "certify_submit": {
+    "domain": "status",
+    "case_name": "Certify and submit task",
+    "guidance": [
+      "Explain that there is a final Review and Submit task",
+      "Explain the certify and review task from the knowledge base article",
+      "Provide detail steps on how to complete the Review and Submit task",
+      "Provide a link to the knowledge base article",
+      "If the Accepting an invitation from your customer article is provided, reference the section Certify your data and Accept the Invitation"
     ]
   },
   "password_update": {
@@ -139,6 +180,15 @@
       "Explain that the document must be dated and signed",
       "Do not explain all the rules before only the necessary according to the problem_description input",
       "Ask the vendor to upload an updated W9 form"
+    ]
+  },
+  "status": {
+    "domain": "status",
+    "case_name": "status of the connection",
+    "guidance": [
+      "Explain that the issue was been solved",
+      "If customer has a pending task, clarify that the customer is currently working on that",
+      "Clarify that there is no further action on the supplier's end"
     ]
   }
 
