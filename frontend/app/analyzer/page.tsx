@@ -12,6 +12,7 @@ export default function CaseAnalyzerPage() {
   const [selectedCaseKey, setSelectedCaseKey] = useState<string | null>(null);
   const [step, setStep] = useState<"edit" | "select_case" | "reply">("edit");
   const [readyForResolution, setReadyForResolution] = useState(false);
+  const [isSolved, setIsSolved] = useState<boolean | null>(null);
 
   const isReadyForResolution = () => {
     if (!analysis) return false;
@@ -25,14 +26,14 @@ export default function CaseAnalyzerPage() {
       supplier?.registration_number &&
       customer?.customer_company &&
       customer?.email;
-    
-    requiredFieldsFilled? setReadyForResolution(true):false;
+
+    requiredFieldsFilled ? setReadyForResolution(true) : false;
   };
 
   const confirmAndUpdateSummary = async () => {
     setFinalizing(true);
     setError(null);
-
+    console.log(analysis)
     try {
       const res = await fetch("http://localhost:8000/update-case-summary", {
         method: "POST",
@@ -43,6 +44,7 @@ export default function CaseAnalyzerPage() {
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
       const data = await res.json();
+      
       setAnalysis(data.analysis);
 
       // Avanzar al paso de selección de case key
@@ -55,7 +57,7 @@ export default function CaseAnalyzerPage() {
     }
   };
   const generateReply = async () => {
-    setLoading(true)
+    setLoading(true);
     const formData = new FormData();
 
     formData.append("problem_description", analysis.case_summary);
@@ -89,33 +91,58 @@ export default function CaseAnalyzerPage() {
       }
 
       const data = await res.json();
+      console.log(data);
 
-      // 🔎 Soporta ambos formatos: plano o { analysis } 
+      // 🔎 Soporta ambos formatos: plano o { analysis }
       const backendAnalysis = data.analysis ?? data;
-      // Crea un esqueleto para que la informacion de backendAnalysis pueda ingresar sin 
+      // Crea un esqueleto para que la informacion de backendAnalysis pueda ingresar sin
       // Errores en caso la IA no encuentre un campo especifico.
       const normalizedAnalysis = {
         case_summary: "",
         generated_problem_description: "",
+
         supplier_entities: {
           contact_name: "",
           company_name: "",
           email: "",
           graphite_id: "",
           registration_number: "",
+          admin_users: {
+            name: "",
+            email: "",
+          },
         },
+
         customer_entities: {
           customer_company: "",
           contact_name: "",
           email: "",
+          graphite_id: "",
         },
-        questions: [],
-        detected_issues: [],
-        missing_information: [],
-        confidence_notes: {},
+
+        connection: {
+          status: "",
+          action_required: [], // array de strings
+          deadline: "",
+          error_type: "",
+        },
+
+        email: {
+          questions: [],
+          detected_issues: [],
+          missing_information: [],
+          confidence_notes: {},
+          issue_category: "",
+          urgency: "",
+          document_type: "",
+          solved: false,
+        },
+
         suggested_case_keys: [],
         ready_for_resolution: false,
-        ...backendAnalysis, // 👈 seguro ahora, el backend sobreescribe la info en el esqueleto y si no hay campos encontrados por la IA el esqueleto ya ha definido los valores por default para que el programa no se rompa
+
+        // 👇 El backend pisa SOLO lo que sí encontró
+        ...backendAnalysis,
       };
 
       setAnalysis(normalizedAnalysis);
@@ -127,23 +154,23 @@ export default function CaseAnalyzerPage() {
     }
   };
 
-  const updateField = (path: string, value: string) => {
-    setAnalysis((prev: any) => {
-      if (!prev) return prev;
+  const updateField = (path: string, value: unknown) => {
+  setAnalysis((prev: any) => {
+    if (!prev) return prev;
 
-      const updated = structuredClone(prev);
-      const keys = path.split(".");
-      let obj = updated;
+    const updated = structuredClone(prev);
+    const keys = path.split(".");
+    let obj = updated;
 
-      keys.slice(0, -1).forEach((k) => {
-        if (!obj[k]) obj[k] = {};
-        obj = obj[k];
-      });
-
-      obj[keys[keys.length - 1]] = value;
-      return updated;
+    keys.slice(0, -1).forEach((k) => {
+      if (!obj[k]) obj[k] = {};
+      obj = obj[k];
     });
-  };
+
+    obj[keys[keys.length - 1]] = value;
+    return updated;
+  });
+};
 
   return (
     <div className="p-6 max-w-5xl mx-auto space-y-6">
@@ -264,6 +291,135 @@ export default function CaseAnalyzerPage() {
               }
             />
           </section>
+          {/* Connection data */}
+          <section className="border rounded p-4 space-y-2">
+            <h2 className="font-semibold">⭐​Connection status</h2>
+            <label>Required actions</label>
+            {Array.isArray(analysis.connection?.action_required) &&
+              analysis.connection.action_required.map(
+                (a: string, index: number) => (
+                  <input
+                    key={index}
+                    className="border p-2 w-full"
+                    placeholder={`Required action ${index + 1}`}
+                    value={a || ""}
+                    onChange={(e) =>
+                      updateField(
+                        `connection.action_required[${index}]`,
+                        e.target.value,
+                      )
+                    }
+                  />
+                ),
+              )}
+            <label>Status</label>
+            <input
+              className="border p-2 w-full"
+              placeholder="Connection status"
+              value={analysis.connection?.status || ""}
+              onChange={(e) => updateField("connection.status", e.target.value)}
+            />
+            <label>Deadline</label>
+            <input
+              className="border p-2 w-full"
+              placeholder="Deadline"
+              value={analysis.connection?.deadline || ""}
+              onChange={(e) =>
+                updateField("connection.deadline", e.target.value)
+              }
+            />
+            <label>Error type</label>
+            <input
+              className="border p-2 w-full"
+              placeholder="Error Type"
+              value={analysis.connection?.error_type || ""}
+              onChange={(e) =>
+                updateField("connection.error_type", e.target.value)
+              }
+            />
+          </section>
+
+          {/* Email Data */}
+          <section className="border rounded p-4">
+            <h2 className="font-semibold mb-2">📧​ Email</h2>
+            <label>Detected issues</label>
+            {Array.isArray(analysis.email?.detected_issues) &&
+              analysis.email?.detected_issues.map(
+                (i: string, index: number) => (
+                  <input
+                    key= {index}
+                    className="border p-2 w-full"
+                    placeholder={`Detected issue ${index + 1}`}
+                    value={i || ""}
+                    onChange={(e) =>
+                      updateField(
+                        `email.detected_issue[${index}]`,
+                        e.target.value,
+                      )
+                    }
+                  />
+                ),
+              )}
+            <label>Document type</label>
+            <input
+              className="border p-2 w-full"
+              placeholder="Please enter the document type if relevant"
+              value={analysis.email?.document_type || ""}
+              onChange={(e) =>
+                updateField("email.document_type", e.target.value)
+              }
+            />
+            <label>Issue Category</label>
+            <input
+              className="border p-2 w-full"
+              placeholder="Please enter the document type if relevant"
+              value={analysis.email?.issue_category || ""}
+              onChange={(e) =>
+                updateField("email.issue_category", e.target.value)
+              }
+            />
+            <label>Questions</label>
+            {Array.isArray(analysis.email?.questions) &&
+              analysis.email?.questions.map((q: string, index: number) => (
+                <input
+                  key={index}
+                  className="border p-2 w-full"
+                  placeholder={`Question ${index + 1}`}
+                  value={q || ""}
+                  onChange={(e) =>
+                    updateField(`email.questions[${index}]`, e.target.value)
+                  }
+                />
+              ))}
+            <label> The issue is solved?</label>
+            <label className="block mb-2">
+              <input
+                type="radio"
+                checked={analysis.email.solved === true}
+                onChange={(e) => updateField("email.solved", e.target.checked)}
+              />{" "}
+              Yes
+            </label>
+
+            <label className="block mb-2">
+              <input
+                type="radio"
+                checked={analysis.email.solved === false}
+                onChange={(e) => updateField("email.solved", e.target.checked)}
+              />{" "}
+              No
+            </label>
+
+            <label >Urgency</label>
+            <input
+              className="border p-2 w-full"
+              placeholder="Urgency"
+              value={analysis.email?.urgency || ""}
+              onChange={(e) =>
+                updateField("email.urgency", e.target.value)
+              }
+            />
+          </section>
 
           {/* ERROR / SCREENSHOT DETAILS */}
           <section className="border rounded p-4">
@@ -285,14 +441,14 @@ export default function CaseAnalyzerPage() {
           <section className="border rounded p-4">
             <h2 className="font-semibold mb-2">❗ Missing Information</h2>
 
-            {analysis.missing_information?.length === 0 ? (
+            {analysis.email.missing_information?.length === 0 ? (
               <p className="text-green-600">
                 All required information is present
               </p>
             ) : (
               <ul className="list-disc ml-6">
-                {Array.isArray(analysis.missing_information) &&
-                  analysis.missing_information.map((m: string) => (
+                {Array.isArray(analysis.email.missing_information) &&
+                  analysis.email.missing_information.map((m: string) => (
                     <li key={m}>{m}</li>
                   ))}
               </ul>
@@ -327,8 +483,6 @@ export default function CaseAnalyzerPage() {
             >
               Confirm & Update Summary
             </button>
-
-      
           </section>
 
           {step === "select_case" && (

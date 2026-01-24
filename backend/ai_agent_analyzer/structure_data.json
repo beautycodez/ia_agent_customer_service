@@ -6,21 +6,38 @@
     "company_name": null,
     "email": null,
     "graphite_id": null,
-    "registration_number": null
+    "registration_number": null,
+    "admin_users": {
+      "name":null,
+      "email":null
+    }
   },
   "customer_entities": {
     "customer_company": null,
     "contact_name": null,
-    "email": null
+    "email": null,
+    "graphite_id": null
   },
-  "questions": [],
-  "detected_issues": [],
-  "missing_information": [],
-  "confidence_notes": {
-  "supplier_entities.contact_name": "Not found in email",
-  "supplier_entities.graphite_id": "High confidence",
-  "customer_entities.email": "Extracted directly from signature"
-},
+  "connection": {
+    "status": "",
+    "action_required": [],
+    "deadline": null,
+    "error_type":null
+  },
+  "email": {
+    "questions": [],
+    "detected_issues": [],
+    "missing_information": [],
+    "confidence_notes": {
+      "supplier_entities.contact_name": "Not found in email",
+      "supplier_entities.graphite_id": "High confidence",
+      "customer_entities.email": "Extracted directly from signature"
+    },
+    "issue_category": "",
+    "urgency": null,
+    "document_type": null,
+    "solved": false
+  },
   "suggested_case_keys": [],
   "ready_for_resolution": false
 }
