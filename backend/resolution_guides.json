@@ -65,7 +65,8 @@
       "Clarify that the current user cannot approve their own bank details",
       "Explain how to add a second user",
       "Request to set up banking permissions for the second user",
-      "Guide how to complete the bank approval task"
+      "Provide step by step instructions on how the second user can approve the bank details",
+      "Reference the article in the knowledge base using an embedded link"
     ]
   },
 

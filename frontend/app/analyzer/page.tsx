@@ -26,7 +26,7 @@ export default function CaseAnalyzerPage() {
       customer?.customer_company &&
       customer?.email;
     
-    return Boolean(requiredFieldsFilled) && requiredFieldsFilled? setReadyForResolution(true):false;
+    requiredFieldsFilled? setReadyForResolution(true):false;
   };
 
   const confirmAndUpdateSummary = async () => {
