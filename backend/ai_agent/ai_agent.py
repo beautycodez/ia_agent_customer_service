@@ -1,7 +1,7 @@
 from openai import OpenAI
 from dotenv import load_dotenv
 import os
-from kb_search import search_kb, KB_GENERAL
+from ai_agent.kb_search import search_kb, KB_GENERAL
 import json
 # Cargar variables desde el archivo .env
 load_dotenv()
