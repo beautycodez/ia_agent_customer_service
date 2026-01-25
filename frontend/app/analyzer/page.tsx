@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import ReactMarkdown from "react-markdown";
 
 export default function CaseAnalyzerPage() {
   const [emailThread, setEmailThread] = useState("");
@@ -33,7 +34,7 @@ export default function CaseAnalyzerPage() {
   const confirmAndUpdateSummary = async () => {
     setFinalizing(true);
     setError(null);
-    console.log(analysis)
+    console.log(analysis);
     try {
       const res = await fetch("http://localhost:8000/update-case-summary", {
         method: "POST",
@@ -44,8 +45,11 @@ export default function CaseAnalyzerPage() {
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
       const data = await res.json();
-      
-      setAnalysis(data.analysis);
+
+      setAnalysis((prev: any) => ({
+        ...prev,
+        ...data.analysis,
+      }));
 
       // Avanzar al paso de selección de case key
       setStep("select_case");
@@ -155,22 +159,22 @@ export default function CaseAnalyzerPage() {
   };
 
   const updateField = (path: string, value: unknown) => {
-  setAnalysis((prev: any) => {
-    if (!prev) return prev;
+    setAnalysis((prev: any) => {
+      if (!prev) return prev;
 
-    const updated = structuredClone(prev);
-    const keys = path.split(".");
-    let obj = updated;
+      const updated = structuredClone(prev);
+      const keys = path.split(".");
+      let obj = updated;
 
-    keys.slice(0, -1).forEach((k) => {
-      if (!obj[k]) obj[k] = {};
-      obj = obj[k];
+      keys.slice(0, -1).forEach((k) => {
+        if (!obj[k]) obj[k] = {};
+        obj = obj[k];
+      });
+
+      obj[keys[keys.length - 1]] = value;
+      return updated;
     });
-
-    obj[keys[keys.length - 1]] = value;
-    return updated;
-  });
-};
+  };
 
   return (
     <div className="p-6 max-w-5xl mx-auto space-y-6">
@@ -201,7 +205,10 @@ export default function CaseAnalyzerPage() {
           {/* CASE SUMMARY */}
           <section className="border rounded p-4">
             <h2 className="font-semibold mb-2">📄 Case Summary</h2>
-            <p>{analysis.case_summary || "—"}</p>
+            {/* <p>{analysis.case_summary || "—"}</p> */}
+            <div className="prose prose-sm max-w-none bg-white p-4 rounded shadow">
+              <ReactMarkdown>{analysis.case_summary || "—"}</ReactMarkdown>
+            </div>
           </section>
 
           {/* SUPPLIER */}
@@ -303,12 +310,14 @@ export default function CaseAnalyzerPage() {
                     className="border p-2 w-full"
                     placeholder={`Required action ${index + 1}`}
                     value={a || ""}
-                    onChange={(e) =>
-                      updateField(
-                        `connection.action_required[${index}]`,
-                        e.target.value,
-                      )
-                    }
+                    onChange={(e) => {
+                      const newActions = [
+                        ...analysis.connection.action_required,
+                      ];
+                      newActions[index] = e.target.value;
+
+                      updateField("connection.action_required", newActions);
+                    }}
                   />
                 ),
               )}
@@ -347,16 +356,16 @@ export default function CaseAnalyzerPage() {
               analysis.email?.detected_issues.map(
                 (i: string, index: number) => (
                   <input
-                    key= {index}
+                    key={index}
                     className="border p-2 w-full"
                     placeholder={`Detected issue ${index + 1}`}
                     value={i || ""}
-                    onChange={(e) =>
-                      updateField(
-                        `email.detected_issue[${index}]`,
-                        e.target.value,
-                      )
-                    }
+                    onChange={(e) => {
+                      const newActions = [...analysis.email.detected_issues];
+                      newActions[index] = e.target.value;
+
+                      updateField("email.detected_issues", newActions);
+                    }}
                   />
                 ),
               )}
@@ -386,9 +395,12 @@ export default function CaseAnalyzerPage() {
                   className="border p-2 w-full"
                   placeholder={`Question ${index + 1}`}
                   value={q || ""}
-                  onChange={(e) =>
-                    updateField(`email.questions[${index}]`, e.target.value)
-                  }
+                  onChange={(e) => {
+                    const newActions = [...analysis.email.questions];
+                    newActions[index] = e.target.value;
+
+                    updateField("email.questions", newActions);
+                  }}
                 />
               ))}
             <label> The issue is solved?</label>
@@ -410,14 +422,12 @@ export default function CaseAnalyzerPage() {
               No
             </label>
 
-            <label >Urgency</label>
+            <label>Urgency</label>
             <input
               className="border p-2 w-full"
               placeholder="Urgency"
               value={analysis.email?.urgency || ""}
-              onChange={(e) =>
-                updateField("email.urgency", e.target.value)
-              }
+              onChange={(e) => updateField("email.urgency", e.target.value)}
             />
           </section>
 
@@ -489,18 +499,19 @@ export default function CaseAnalyzerPage() {
             <section className="border rounded p-4">
               <h2 className="font-semibold mb-2">🧠 Select Case Type</h2>
 
-              {analysis.suggested_case_keys.map((key: string) => (
-                <label key={key} className="block mb-2">
-                  <input
-                    type="radio"
-                    name="caseKey"
-                    value={key}
-                    checked={selectedCaseKey === key}
-                    onChange={() => setSelectedCaseKey(key)}
-                  />{" "}
-                  {key}
-                </label>
-              ))}
+              {Array.isArray(analysis.suggested_case_keys) &&
+                analysis.suggested_case_keys.map((key: string) => (
+                  <label key={key} className="block mb-2">
+                    <input
+                      type="radio"
+                      name="caseKey"
+                      value={key}
+                      checked={selectedCaseKey === key}
+                      onChange={() => setSelectedCaseKey(key)}
+                    />{" "}
+                    {key}
+                  </label>
+                ))}
               {/* Manual case key */}
               <div className="mt-4">
                 <label className="block text-sm font-medium mb-1">
