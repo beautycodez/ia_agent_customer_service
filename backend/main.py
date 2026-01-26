@@ -2,6 +2,7 @@ from fastapi import FastAPI, UploadFile, File, Form, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 from ai_agent.ai_agent import generate_support_reply, get_kb_context, GENERIC_RESOLUTION_GUIDANCE
 from ai_agent_analyzer.ai_agent_analyzer import analyze_case, evaluate_resolution_readiness
+from ai_analyzer_replier.ai_analyzer_replier import generate_support_reply_analyzer, get_kb_context_analyzer, GENERIC_RESOLUTION_GUIDANCE_ANALYZER
 from pydantic import BaseModel
 from typing import Dict, Any
 import json
@@ -57,7 +58,40 @@ Resolution steps:
     return {
         "reply": reply
     }
+#-----------------------------------New Replier -----------------------------
+@app.post("/support-agent-replier")
+async def support_agent_replier(
+    problem_description: str = Form(...),
+    case_key: str | None = Form(None),
+    screenshots: list[UploadFile] = File(default=[])
+):
+    kb_context = get_kb_context_analyzer(case_key)
 
+    screenshot_context = ""
+    if screenshots:
+        screenshot_context = f"\nScreenshots attached: {len(screenshots)}.\n"
+
+    if case_key in RESOLUTION_GUIDES:
+        selected_case = RESOLUTION_GUIDES[case_key]
+
+        resolution_guidance = f"""
+Case: {selected_case['case_name']}
+
+Resolution steps:
+- """ + "\n- ".join(selected_case["guidance"])
+
+    else:
+        resolution_guidance = GENERIC_RESOLUTION_GUIDANCE_ANALYZER
+
+    reply = generate_support_reply_analyzer(
+        problem_description=problem_description + screenshot_context,
+        resolution_guidance=resolution_guidance,
+        kb_context=kb_context
+    )
+
+    return {
+        "reply": reply
+    }
 # @app.post("/analyze-case")
 # async def analyze_support_case(
 #     email_thread: str = Form(...)
