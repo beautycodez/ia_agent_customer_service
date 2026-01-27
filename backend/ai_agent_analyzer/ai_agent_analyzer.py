@@ -44,7 +44,7 @@ Your task:
 - Extract structured information
 - Generate a concise problem description
 - Identify missing information
-- Suggest possible case keys
+- Suggest possible case keys for suggested_case_keys (example: bank approval, add new user)
 
 Rules:
 - Do NOT write a support reply

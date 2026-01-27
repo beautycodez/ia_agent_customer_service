@@ -74,7 +74,7 @@ KB_INDEX = {
     },
     
     "add_new_users": {
-        "domain": "add Users",
+        "domain": "add users",
         "articles": [
             {
                 "title": "How to add new users",
@@ -92,7 +92,7 @@ KB_INDEX = {
         "domain": "password",
         "articles": [
             {
-                "title": "How to Update Your Password.",
+                "title": "How to Update Your Password",
                 "summary": "Steps for updating or resetting the password",
                 "url": "https://graphite.zendesk.com/hc/en-us/articles/31169836574871-How-to-Update-Your-Password"
             }
@@ -100,7 +100,7 @@ KB_INDEX = {
     },
     
     "w9_outdated": {
-        "domain": "W9",
+        "domain": "w9",
         "articles": [
             {
                 "title": "How to upload a W-9",
@@ -110,7 +110,7 @@ KB_INDEX = {
         ]
     },
     "w9_no_individual_issue": {
-        "domain": "W9",
+        "domain": "w9",
         "articles": [
             {
                 "title": "How to upload a W-9",
@@ -120,6 +120,31 @@ KB_INDEX = {
         ]
     },
     "veriff_refusal": {
+        "domain": "veriff",
+        "articles": [
+            {
+                "title": "Enhanced Security: Identity Verification on Graphite",
+                "summary": "Verification process explanation",
+                "url": "https://graphite.zendesk.com/hc/en-us/articles/22390093303319-Enhanced-Security-Identity-Verification-on-Graphite"
+            }
+        ]
+    },
+    "veriff_refusal_escalation": {
+        "domain": "veriff",
+        "articles": [
+            {
+                "title": "Enhanced Security: Identity Verification on Graphite",
+                "summary": "Verification process explanation",
+                "url": "https://graphite.zendesk.com/hc/en-us/articles/22390093303319-Enhanced-Security-Identity-Verification-on-Graphite"
+            },
+            {
+                "title": "Accepting an Invitation from your Customer",
+                "summary": "Explanation on how to opt out of the verification",
+                "url": "https://graphite.zendesk.com/hc/en-us/articles/4407280293271-Accepting-an-Invitation-from-your-Customer"
+            }
+        ]
+    },
+    "veriff_issue": {
         "domain": "veriff",
         "articles": [
             {
@@ -195,7 +220,7 @@ KB_GENERAL = {
             "weight": 8
         },
         {
-            "title": "How to Update Your Password.",
+            "title": "How to Update Your Password",
             "summary": "Steps for updating password in graphiteConnect",
             "url": "https://graphite.zendesk.com/hc/en-us/articles/31169836574871-How-to-Update-Your-Password",
             "weight": 2

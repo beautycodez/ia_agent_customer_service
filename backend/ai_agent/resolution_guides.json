@@ -2,6 +2,13 @@
   "mismatch_profile_document": {
     "domain": "documents",
     "case_name": "Profile and document mismatch",
+    "keywords": [
+      "mismatch",
+      "does not match",
+      "different information",
+      "inconsistent",
+      "not matching"
+    ],
     "guidance": [
       "Explain clearly which information does not match",
       "Do not assume which information is correct",
@@ -14,6 +21,16 @@
   "duplicate_profile": {
     "domain": "profile",
     "case_name": "Duplicate profile detected",
+    "keywords": [
+      "duplicate",
+      "two profiles",
+      "same company",
+      "same registration number",
+      "multiple profiles",
+      "duplicate account",
+      "duplicate entity",
+      "duplicate tax id"
+    ],
     "guidance": [
       "Inform the supplier that a duplicate profile exists",
       "Provide the Graphite ID and legal name",
@@ -26,26 +43,41 @@
   "bank_approval_pending": {
     "domain": "bank",
     "case_name": "Bank approval pending and approver has access",
-    "guidance": ["First, determine whether the person you are replying to is the bank approver or another user.",
-    
-    "If the user is NOT the approver:",
-    "- Explain that the bank approval must be completed by a second user.",
-    "- Clarify that the user who added the bank account cannot approve their own bank details.",
-    "- Ask them to share the name and email address of the approver (leave placeholders in the email).",
-    
-    "If the user IS the approver:",
-    "- Ask them to log in using the email address that has access.",
-    "- Instruct them to complete the pending bank approval task.",
-    
-    "Include an embedded link to the knowledge base article explaining how to complete the bank approval.",
-    
-    "Keep the tone clear, professional, and supportive. Do not mention internal systems or internal reasoning."
+    "keywords": [
+      "bank approval",
+      "banking approval",
+      "pending approval",
+      "approve bank",
+      "second user",
+      "approver",
+      "cannot approve"
+    ],
+    "guidance": [
+      "First, determine whether the person you are replying to is the bank approver or another user.",
+      "If the user is NOT the approver:",
+      "- Explain that the bank approval must be completed by a second user.",
+      "- Clarify that the user who added the bank account cannot approve their own bank details.",
+      "- Ask them to share the name and email address of the approver (leave placeholders in the email).",
+      "If the user IS the approver:",
+      "- Ask them to log in using the email address that has access.",
+      "- Instruct them to complete the pending bank approval task.",
+      "Include an embedded link to the knowledge base article explaining how to complete the bank approval.",
+      "Keep the tone clear, professional, and supportive. Do not mention internal systems or internal reasoning."
     ]
   },
 
   "bank_approval_pending_invitation_sent": {
     "domain": "bank",
     "case_name": "Bank approval pending and invitation sent to supplier",
+    "keywords": [
+      "bank approval",
+      "banking approval",
+      "invitation sent",
+      "approver invited",
+      "recieve invitation",
+      "email invitation",
+      "no-reply@graphiteconnect.com"
+    ],
     "guidance": [
       "Explain that bank approval must be completed by a second user with banking permissions",
       "Clarify that the current user cannot approve their own bank details",
@@ -60,6 +92,15 @@
   "bank_approval_no_second_user": {
     "domain": "bank",
     "case_name": "There is no second user to approve",
+    "keywords": [
+      "bank approval",
+      "banking approval",
+      "no second user",
+      "only one user",
+      "cannot approve bank",
+      "need another user",
+      "bank approval blocked"
+    ],
     "guidance": [
       "Explain that bank approval must be completed by a second user with banking permissions",
       "Clarify that the current user cannot approve their own bank details",
@@ -73,6 +114,12 @@
   "share_bank": {
     "domain": "bank",
     "case_name": "Share Bank with Customer",
+    "keywords": [
+      "share bank",
+      "bank not visible",
+      "customer cannot see bank",
+      "bank account not shared"
+    ],
     "guidance": [
       "Explain that the supplier has added the bank account",
       "Explain that the supplier has not shared the bank account with the customer",
@@ -80,18 +127,39 @@
       "Clarify that after the bank account is shared, the customer will have visibility of the bank account as normal"
     ]
   },
+
   "validation_bank_invalid_document": {
     "domain": "validation",
     "case_name": "The document provided is not valid",
+    "keywords": [
+      "invalid document",
+      "bank document rejected",
+      "not valid",
+      "incorrect document",
+      "no valid document"
+    ],
     "guidance": [
       "Explain that the customer requires a valid bank document issued by the bank",
       "Explain that customer cannot process invoices with a non valid bank document",
       "Share the steps on how to upload a new bank document"
     ]
   },
-   "2FA_reset": {
+
+  "2FA_reset": {
     "domain": "2FA",
     "case_name": "Reset the 2FA method",
+    "keywords": [
+      "2fa",
+      "two factor",
+      "reset 2fa",
+      "authentication issue",
+      "don't get the code",
+      "do not get the code",
+      "no code",
+      "sent to my phone",
+      "code in my phone",
+      "authentication app"
+    ],
     "guidance": [
       "Clarify that we can help reset the 2FA method",
       "Explain that a personal verification is needed when resetting the 2FA",
@@ -99,9 +167,20 @@
       "Request the supplier to wait until we send a QR code/Link for verification"
     ]
   },
+
   "veriff_refusal": {
     "domain": "veriff",
     "case_name": "Veriff explanation",
+    "keywords": [
+      "veriff",
+      "verification failed",
+      "id verification",
+      "camera",
+      "refused verification",
+      "no confortable",
+      "share personal information",
+      "private information"
+    ],
     "guidance": [
       "Empathize with the supplier",
       "Explain why is it important to complete the verification process",
@@ -110,9 +189,58 @@
       "Ask the supplier to book a video call with the calendly link https://calendly.com/graphiteconnect-angello-ruiz-landauro/angello-ruiz"
     ]
   },
-  "Task_completed": {
-    "domain": "Tasks",
+  "veriff_refusal_escalation": {
+    "domain": "veriff",
+    "case_name": "Veriff escalation",
+    "keywords": [
+      "veriff",
+      "veriff refusal",
+      "escalate",
+      "escalation",
+      "no video call",
+      "no manual verification",
+      "no personal information",
+      "share id"
+    ],
+    "guidance": [
+      "Empathize with the supplier",
+      "If the supplier has not opt out of the verification process yet, instruct the supplier how to opt out in graphiteConnect",
+      "if the supplier has already opted out of the verification, explain the supplier that you will escalate this case with the customer"
+    ]
+  },
+  "veriff_issue": {
+    "domain": "veriff",
+    "case_name": "Verification process",
+    "keywords": [
+      "veriff",
+      "verification failed",
+      "again",
+      "verification does not work",
+      "not working",
+      "repeat verification",
+      "verify again",
+      "completed"
+    ],
+    "guidance": [
+      "Empathize with the supplier",
+      "Explain how to complete the verification process successfully",
+      "share an embedded link from the knowledge base article: Enhanced Security: Identity Verification on Graphite",
+      "Ask the supplier to try again following"
+    ]
+  },
+  "task_completed": {
+    "domain": "tasks",
     "case_name": "The task was completed but not cleared out",
+    "keywords": [
+      "task",
+      "task completed",
+      "is pending",
+      "is missing",
+      "everything is completed",
+      "how to complete",
+      "cannot complete",
+      "can't complete"
+    ],
     "guidance": [
       "Acknoledge the issue",
       "Explain the task was completed, but not cleared out",
@@ -122,27 +250,47 @@
   "task_pending": {
     "domain": "tasks",
     "case_name": "Outstanding tasks",
+    "keywords": [
+      "task",
+      "pending tasks",
+      "outstanding tasks",
+      "how to complete task",
+      "what is pending"
+    ],
     "guidance": [
       "Explain that there are outstanding tasks in graphiteConnect",
       "Share the steps on how to complete tasks",
       "Reference the article: Accepting an invitation from your customer (the section - complete required questions)"
     ]
   },
-  
   "add_new_users": {
-    "domain": "add Users",
+    "domain": "add users",
     "case_name": "Add new users",
+    "keywords": [
+      "add new user",
+      "new admin",
+      "admin is not available",
+      "left the company",
+      "get access"
+    ],
     "guidance": [
       "Acknoledge the issue",
       "Explain that only users with Admin users permissions can add other users",
-      "Prompt the user to can contact the admins",
+      "If the admin users are not available, then explain that the graphiteConnect support team can add the new user and the new user should complete a verification process",
       "Share an embedded link Adding new users from the knowledge base articles",
       "Share an embedded link Roles & Permissions from the knowledge base articles"
     ]
   },
+  
   "certify_submit": {
     "domain": "status",
     "case_name": "Certify and submit task",
+    "keywords": [
+      "certify and submit",
+      "review and submit",
+      "connection overview",
+      "tasks"
+    ],
     "guidance": [
       "Explain that there is a final Review and Submit task",
       "Explain the certify and review task from the knowledge base article",
@@ -151,18 +299,35 @@
       "If the Accepting an invitation from your customer article is provided, reference the section Certify your data and Accept the Invitation"
     ]
   },
-  "password_update": {
+   "password_update": {
     "domain": "password",
     "case_name": "Password reset steps",
+    "keywords": [
+      "remember password",
+      "cannot log in",
+      "can't log in",
+      "dot have access",
+      "password reset email"
+    ],
     "guidance": [
       "Acknoledge the issue",
       "Share the steps on how to reset the password",
-      "Explain that the password reset will work successfully if the email address exists in graphiteConnect records"
+      "Explain that the password reset will work successfully if the email address exists in graphiteConnect records",
+      "share an embeded link from the knowledge base articles How to Update Your Password"
     ]
   },
   "w9_outdated": {
-    "domain": "W9",
+    "domain": "w9",
     "case_name": "outdated w9 form",
+    "keywords": [
+      "w9 outdated",
+      "incorrect w9 version",
+      "w-9 outdated",
+      "correct version",
+      "w9 date",
+      "correct version",
+      "correct date"
+    ],
     "guidance": [
       "Explain that the W9 form should be version March 2024 or later",
       "Confirm that the current W9 form is an outdated version",
@@ -170,10 +335,17 @@
       "Share the W9 document pdf link"
     ]
   },
-  
   "w9_no_individual_issue": {
     "domain": "W9",
     "case_name": "outdated w9 form",
+    "keywords": [
+      "incorrect w9",
+      "legal name",
+      "line 1",
+      "individual",
+      "dba in line 2",
+      "tax classification"
+    ],
     "guidance": [
       "Explain line one of the W9 form is for the company name",
       "Explain that only if supplier has a DBA, should be enter in line 2",
@@ -186,13 +358,40 @@
   "status": {
     "domain": "status",
     "case_name": "status of the connection",
+    "keywords": [
+      "status",
+      "connection status",
+      "registration status",
+      "registration completed",
+      "check profile",
+      "what is pending",
+      "review status",
+      "connect status"
+    ],
     "guidance": [
-      "Explain that the issue was been solved",
+      "If the issue is solved, then explain that the issue was been solved",
       "If customer has a pending task, clarify that the customer is currently working on that",
-      "Clarify that there is no further action on the supplier's end"
+      "If the status is review and there is no holds, clarify that there is no further action on the supplier's end and the graphiteConnect validation team will check the information within 24 business hours",
+      "If the status is review and has holds or issues, explain the needed update or next steps for the supplier"
+    ]
+  },
+  
+  "video_call": {
+    "domain": "videocall",
+    "case_name": "video call for assistance",
+    "keywords": [
+      "video call",
+      "videocall",
+      "schedule a call",
+      "video conference",
+      "live assistance",
+      "video"
+    ],
+    "guidance": [
+      "Empathize with the requester",
+      "Share my calendly link https://calendly.com/graphiteconnect-angello-ruiz-landauro/angello-ruiz",
+      "Explain that the calendly link will show my availability and allow to schedule a video call",
+      "Ask the requester to confirm as soon as they schedule the video call"
     ]
   }
-
 }
-
-

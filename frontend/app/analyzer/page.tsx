@@ -35,6 +35,7 @@ export default function CaseAnalyzerPage() {
     setFinalizing(true);
     setError(null);
     console.log(analysis);
+    
     try {
       const res = await fetch("http://localhost:8000/update-case-summary", {
         method: "POST",
@@ -52,8 +53,11 @@ export default function CaseAnalyzerPage() {
       }));
 
       // Avanzar al paso de selección de case key
+
+      setSelectedCaseKey(data.analysis.selected_case_key ?? "others")
       setStep("select_case");
       isReadyForResolution();
+      console.log(data)
     } catch (err: any) {
       setError(err.message);
     } finally {

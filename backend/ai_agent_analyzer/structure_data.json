@@ -19,7 +19,7 @@
     "graphite_id": null
   },
   "connection": {
-    "status": "",
+    "status": "invite | response | connect | connected",
     "action_required": [],
     "deadline": null,
     "error_type":null

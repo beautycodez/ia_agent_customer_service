@@ -6,6 +6,8 @@ from ai_analyzer_replier.ai_analyzer_replier import generate_support_reply_analy
 from pydantic import BaseModel
 from typing import Dict, Any
 import json
+from utilities.kb_matcher import select_case_key
+
 
 def load_resolution_guides():
     with open("ai_agent/resolution_guides.json", "r", encoding="utf-8") as f:
@@ -281,6 +283,13 @@ def update_case_summary(payload: UpdateSummaryRequest):
     # 🧠 Final case summary
     analysis["case_summary"] = "\n\n".join(summary_sections)
     analysis["summary_confirmed_by_user"] = True
+    
+    # 🧠 Auto-select case key
+    case_key = select_case_key(analysis["case_summary"], RESOLUTION_GUIDES)
+
+    analysis["selected_case_key"] = case_key
+    analysis["suggested_case_keys"] = [case_key]
+    analysis["ready_for_resolution"] = True
 
     # ❌ Explicitly ignore these fields
     analysis.pop("suggested_case_keys", None)
