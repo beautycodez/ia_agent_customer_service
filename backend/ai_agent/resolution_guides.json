@@ -13,8 +13,7 @@
       "Explain clearly which information does not match",
       "Do not assume which information is correct",
       "Ask the supplier to confirm the correct details",
-      "Request updated documentation if required",
-      "Do not proceed with verification until confirmation is received"
+      "Request updated documentation if required"
     ]
   },
 
@@ -32,11 +31,10 @@
       "duplicate tax id"
     ],
     "guidance": [
-      "Inform the supplier that a duplicate profile exists",
-      "Provide the Graphite ID and legal name",
-      "Ask which profile should remain active",
-      "Request confirmation of the registration number",
-      "Do not merge profiles without explicit confirmation"
+      "Explain that graphiteConnect does not support duplicate tax IDs or duplicate profiles, unless a branch is required",
+      "Inform the supplier that may be a duplicate profile exists",
+      "create a template with bullets to enter the possible duplicate profile in graphiteConnect (example: Legal name:____, DBA:_____ Tax ID:____, Admin users:____)",
+      "Ask the requester if the profile is duplicate or if they need to create a branch"
     ]
   },
 
@@ -110,6 +108,21 @@
       "Reference the article in the knowledge base using an embedded link"
     ]
   },
+  "bank_update": {
+    "domain": "bank",
+    "case_name": "There is no second user to approve",
+    "keywords": [
+      "bank update",
+      "steps to update",
+      "update",
+      "banking",
+      "bank account"
+    ],
+    "guidance": [
+      "Explain in bullet points how to update the bank account section",
+      "Share an embedded link to the bank account update article"
+    ]
+  },
 
   "share_bank": {
     "domain": "bank",
@@ -144,6 +157,24 @@
       "Share the steps on how to upload a new bank document"
     ]
   },
+  "validation_hold": {
+    "domain": "validation",
+    "case_name": "Validation Error",
+    "keywords": [
+      "validation",
+      "validation error",
+      "validation hold",
+      "hold",
+      "verification process"
+    ],
+    "guidance": [
+      "Empathize with the requester",
+      "Explain that there is a validation hold",
+      "If the validation team message is provided, then explain the validation team message to the supplier",
+      "Clarify that as soon as the supplier makes the update, the validation team at graphiteConnect will check the information within 24 business hours"
+    ]
+  },
+
 
   "2FA_reset": {
     "domain": "2FA",
@@ -268,15 +299,15 @@
     "case_name": "Add new users",
     "keywords": [
       "add new user",
+      "new user",
       "new admin",
       "admin is not available",
       "left the company",
       "get access"
     ],
     "guidance": [
-      "Acknoledge the issue",
-      "Explain that only users with Admin users permissions can add other users",
-      "If the admin users are not available, then explain that the graphiteConnect support team can add the new user and the new user should complete a verification process",
+      "Explain that only users with user admin permissions can add other users",
+      "If the admin user contact details are provided, then share the admin details with the requester",
       "Share an embedded link Adding new users from the knowledge base articles",
       "Share an embedded link Roles & Permissions from the knowledge base articles"
     ]
@@ -369,6 +400,7 @@
       "connect status"
     ],
     "guidance": [
+      "Be polite",
       "If the issue is solved, then explain that the issue was been solved",
       "If customer has a pending task, clarify that the customer is currently working on that",
       "If the status is review and there is no holds, clarify that there is no further action on the supplier's end and the graphiteConnect validation team will check the information within 24 business hours",
@@ -393,5 +425,167 @@
       "Explain that the calendly link will show my availability and allow to schedule a video call",
       "Ask the requester to confirm as soon as they schedule the video call"
     ]
+  },
+  "delete_profile": {
+    "domain": "delete",
+    "case_name": "Delete graphiteConnect profile",
+    "keywords": [
+      "delete profile",
+      "delete account",
+      "delete",
+      "remove"
+      
+    ],
+    "guidance": [
+      "If the customer contact is under the customer information section, then know the customer is in the email thread",
+      "Clarify that we would need confirmation from the customer before deleting the profile",
+      "If the supplier company name and graphite ID are provided in the Supplier information section, then:",
+      "Write the supplier company name and graphite ID in the email",
+      "Else: leave a placeholder or blank space in the email to enter the supplier legal name and graphite ID",
+      "If we know the customer email address, then:",
+      "- Confirm with the customer if there are pending invoices for the supplier",
+      "- Explain the customer that they should disconnect the supplier if there are no pending invoices",
+      "If we don't know the customer email or contact details, then ask the supplier to wait because we will need to contact the customer to remove the profile"
+    ]
+  },
+  "delete_user": {
+    "domain": "delete",
+    "case_name": "Delete user in graphiteConnect profile",
+    "keywords": [
+      "delete profile",
+      "delete account",
+      "delete",
+      "remove"
+      
+    ],
+    "guidance": [
+      "Explain that user with user admin permissions can delete or remove other users",
+      "If the admin users contact details are provided in the supplier information section, then share the admin name and email",
+      "Share the steps in bullet points on how the admin user can remove users from the admin page"
+    ]
+  },
+  "delete_invitation": {
+    "domain": "delete",
+    "case_name": "Delete vendor invitation",
+    "keywords": [
+      "delete invitation",
+      "delete vendor",
+      "delete invite",
+      "invite",
+      "invitation",
+      "delete",
+      "remove"
+      
+    ],
+    "guidance": [
+      "Explain that customers can delete invitation",
+      "Share the steps on how to delete de invitation in bullet points",
+      "Share an embedded link of the article How to cancel (delete) an invitation"
+    ]
+  },
+  "profile_update": {
+    "domain": "update",
+    "case_name": "Profile update",
+    "keywords": [
+      "update",
+      "update information",
+      "update profile",
+      "section"
+      
+    ],
+    "guidance": [
+      "Share the steps on how to edit sections in the connection view",
+      "Give an embedded link of the article How to Update Information When My Status is Connected"
+    ]
+  },
+  "permission_update": {
+    "domain": "update",
+    "case_name": "Profile update",
+    "keywords": [
+      "update",
+      "update permission",
+      "permissions",
+      "admin page",
+      "contact your admin",
+      "have permissions"
+      
+    ],
+    "guidance": [
+      "Explain that the admin user can grant permissions to other users from the admin page",
+      "Share an embedded link of the article Adding new users and refer the section Editing user permissions",
+      "Share an embedded link fo the article "
+    ]
+  },
+  "invite_recipient_update": {
+    "domain": "update",
+    "case_name": "Invite recipient update",
+    "keywords": [
+      "invite",
+      "recipient",
+      "update invitation",
+      "invite update"
+      
+    ],
+    "guidance": [
+      "Share steps on bullet points on how to edit the invite recipient",
+      "Share an embedded link of the article"
+    ]
+  },
+  "invite_not_yet_accepted": {
+    "domain": "invite",
+    "case_name": "Invite not yet accepted",
+    "keywords": [
+      "accept invitation",
+      "invitation sent",
+      "invitation not accepted",
+      "invite",
+      "invitation"
+    ],
+    "guidance": [
+      "If the invitation has been resent to the supplier, then:",
+      "- Ask the supplier to check the spam folder for an invite from no-reply@graphiteconnect.com",
+      "If the supplier is in the email thread, then, explain the supplier that there is a pending invitation to register the supplier company in graphiteConnect",
+      "Share an embedded link to the article Accepting an Invitation from your Customer"
+    ]
+  },
+  "unable_to_accept_invitation": {
+    "domain": "invite",
+    "case_name": "Unable to accept invitation",
+    "keywords": [
+      "accept invitation",
+      "unexpected error",
+      "invitation",
+      "issues accepting",
+      "cannot accept"
+    ],
+    "guidance": [
+      "If the invitation has been resent, then prompt the supplier to accept the invitation again and share basic troubleshooting steps (example: clear cookies and caches, copy and paste the invitation link in an incognito windows, use google chrome as the preferred browser, etc)"
+    ]
+  },
+  "non_network": {
+    "domain": "nn",
+    "case_name": "Non network suppliers",
+    "keywords": [
+      "non-network",
+      "non network supplier"
+    ],
+    "guidance": [
+      "If the customer ask to update a non-network profile, then explain politely that they should contact their internal team since non-network suppliers are fully onboarded by the customers"
+    ]
+  },
+  "disregarded_entity": {
+    "domain": "disregarded_entity",
+    "case_name": "How to manage disregarded entity",
+    "keywords": [
+      "disregarded entity",
+      "disregarded",
+      "parent company",
+      "child company"
+    ],
+    "guidance": [
+      "Explain how to set up a disregarded entity",
+      "Share an embedded link of the article Guideline for Disregarded Entities in Graphite"
+    ]
   }
+  
 }

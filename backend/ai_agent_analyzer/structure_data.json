@@ -1,41 +1,47 @@
 {
   "case_summary": "",
   "generated_problem_description": "",
+  "extra_information": null,
+  "detected_issue": null,
+  "resolution": null,
   "supplier_entities": {
-    "contact_name": null,
+    "supplier_details": [{
+      "name": "",
+      "email": ""
+      }
+    ],
     "company_name": null,
-    "email": null,
     "graphite_id": null,
     "registration_number": null,
-    "admin_users": {
+    "admin_users": [{
       "name":null,
       "email":null
-    }
+    }]
   },
   "customer_entities": {
     "customer_company": null,
-    "contact_name": null,
-    "email": null,
+    "customer_details": [{
+      "name": "",
+      "email": ""
+      }
+    ],
     "graphite_id": null
   },
   "connection": {
     "status": "invite | response | connect | connected",
-    "action_required": [],
-    "deadline": null,
-    "error_type":null
+    "error_type":"validation | bug | configuration | user"
   },
   "email": {
+    "requester": "",
+    "graphite_validation_team_message": null,
     "questions": [],
-    "detected_issues": [],
     "missing_information": [],
     "confidence_notes": {
       "supplier_entities.contact_name": "Not found in email",
       "supplier_entities.graphite_id": "High confidence",
       "customer_entities.email": "Extracted directly from signature"
     },
-    "issue_category": "",
     "urgency": null,
-    "document_type": null,
     "solved": false
   },
   "suggested_case_keys": [],
