@@ -6,6 +6,8 @@ from ai_analyzer_replier.ai_analyzer_replier import generate_support_reply_analy
 from pydantic import BaseModel
 from typing import Dict, Any
 import json
+from utilities.kb_matcher import select_case_key
+
 
 def load_resolution_guides():
     with open("ai_agent/resolution_guides.json", "r", encoding="utf-8") as f:
@@ -58,6 +60,10 @@ Resolution steps:
     return {
         "reply": reply
     }
+    
+@app.get("/resolution-guides")
+async def get_resolution_guides():
+    return RESOLUTION_GUIDES
 #-----------------------------------New Replier -----------------------------
 @app.post("/support-agent-replier")
 async def support_agent_replier(
@@ -66,7 +72,7 @@ async def support_agent_replier(
     screenshots: list[UploadFile] = File(default=[])
 ):
     kb_context = get_kb_context_analyzer(case_key)
-
+    print(case_key)
     screenshot_context = ""
     if screenshots:
         screenshot_context = f"\nScreenshots attached: {len(screenshots)}.\n"
@@ -170,7 +176,27 @@ def update_case_summary(payload: UpdateSummaryRequest):
     if analysis.get("generated_problem_description"):
         summary_sections.append(
     f"**Problem Description:**\n{analysis['generated_problem_description']}" + "\n"
-)
+)   
+    # 🆕 1️⃣➕ Extra / Detected / Resolution
+    extra_sections = []
+
+    if analysis.get("detected_issue"):
+        extra_sections.append(
+            f"**Detected Issue:**\n{analysis['detected_issue']}" + "\n"
+        )
+
+    if analysis.get("extra_information"):
+        extra_sections.append(
+            f"**Additional Information:**\n{analysis['extra_information']}" + "\n"
+        )
+
+    if analysis.get("resolution"):
+        extra_sections.append(
+            f"**Proposed Resolution:**\n{analysis['resolution']}" + "\n"
+        )
+
+    if extra_sections:
+        summary_sections.append("\n".join(extra_sections) + "\n")
 
     # 2️⃣ Supplier entities
     supplier = analysis.get("supplier_entities", {})
@@ -178,19 +204,31 @@ def update_case_summary(payload: UpdateSummaryRequest):
 
     for label, key in [
         ("Company Name", "company_name"),
-        ("Contact Name", "contact_name"),
-        ("Email", "email"),
         ("Graphite ID", "graphite_id"),
         ("Registration Number", "registration_number"),
     ]:
         if supplier.get(key):
             supplier_parts.append(f"- {label}: {supplier[key]}")
 
-    admin = supplier.get("admin_users", {})
-    if admin.get("name") or admin.get("email"):
-        supplier_parts.append(
-            f"- Admin User: {admin.get('name', 'N/A')} ({admin.get('email', 'N/A')})"
-        )
+    # ✅ Admin users (ARRAY)
+    admin_users = supplier.get("admin_users", [])
+    if admin_users:
+        supplier_parts.append("- Admin Users:")
+        for idx, admin in enumerate(admin_users, start=1):
+            name = admin.get("name", "N/A")
+            email = admin.get("email", "N/A")
+            supplier_parts.append(
+                f"  - Admin {idx}: {name} ({email})"
+            )
+    # ✅ Supplier details (ARRAY)
+    supplier_details = supplier.get("supplier_details", [])
+
+    if supplier_details:
+        supplier_parts.append("- Supplier Contacts:")
+        for idx, contact in enumerate(supplier_details, start=1):
+            name = contact.get("name", "N/A")
+            email = contact.get("email", "N/A")
+            supplier_parts.append(f"  - Contact {idx}: {name} ({email})")
 
     if supplier_parts:
         summary_sections.append(
@@ -203,12 +241,19 @@ def update_case_summary(payload: UpdateSummaryRequest):
 
     for label, key in [
         ("Company", "customer_company"),
-        ("Contact Name", "contact_name"),
-        ("Email", "email"),
         ("Graphite ID", "graphite_id"),
     ]:
         if customer.get(key):
             customer_parts.append(f"- {label}: {customer[key]}")
+    # 🔹 NUEVO: Customer details (lista de contactos)
+    customer_details = customer.get("customer_details", [])
+
+    if customer_details:
+        customer_parts.append("- Customer Contacts:")
+        for idx, contact in enumerate(customer_details, start=1):
+            name = contact.get("name", "N/A")
+            email = contact.get("email", "N/A")
+            customer_parts.append(f"  - Contact {idx}: {name} ({email})")
 
     if customer_parts:
        summary_sections.append(
@@ -244,17 +289,16 @@ def update_case_summary(payload: UpdateSummaryRequest):
     email_parts = []
 
     for label, key in [
-        ("Issue Category", "issue_category"),
         ("Urgency", "urgency"),
-        ("Document Type", "document_type"),
         ("Solved", "solved"),
+        ("Requester", "requester"),
+        ("Validation Team Message", "graphite_validation_team_message")
     ]:
         if key in email and email[key] not in ("", None, []):
             email_parts.append(f"- {label}: {email[key]}")
 
     for list_label, key in [
         ("Questions", "questions"),
-        ("Detected Issues", "detected_issues"),
         ("Missing Information", "missing_information"),
     ]:
         items = email.get(key, [])
@@ -281,6 +325,13 @@ def update_case_summary(payload: UpdateSummaryRequest):
     # 🧠 Final case summary
     analysis["case_summary"] = "\n\n".join(summary_sections)
     analysis["summary_confirmed_by_user"] = True
+    
+    # 🧠 Auto-select case key
+    case_key = select_case_key(analysis["case_summary"], RESOLUTION_GUIDES)
+
+    analysis["selected_case_key"] = case_key
+    analysis["suggested_case_keys"] = [case_key]
+    analysis["ready_for_resolution"] = True
 
     # ❌ Explicitly ignore these fields
     analysis.pop("suggested_case_keys", None)
