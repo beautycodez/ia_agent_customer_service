@@ -1,9 +1,0 @@
-.env
-# Python
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-backend/**/__pycache__/
-*.pyc
-
