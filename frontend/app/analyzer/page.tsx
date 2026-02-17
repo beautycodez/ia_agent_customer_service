@@ -97,7 +97,7 @@ export default function CaseAnalyzerPage() {
 
     formData.append("problem_description", analysis.case_summary);
     formData.append("case_key", selectedCaseKey!);
-
+    formData.append("email_thread", emailThread);
     const res = await fetch("http://localhost:8000/support-agent-replier", {
       method: "POST",
       body: formData,

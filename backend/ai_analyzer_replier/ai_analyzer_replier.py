@@ -132,11 +132,15 @@ Instructions:
 def generate_support_reply_analyzer(
     problem_description,
     resolution_guidance,
-    kb_context=""
+    email_thread,
+    kb_context="",
 ):
     user_prompt = f"""
 Problem description:
 {problem_description}
+
+Email Thread: 
+{email_thread}
 
 Resolution guidance:
 {resolution_guidance}

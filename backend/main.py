@@ -69,10 +69,12 @@ async def get_resolution_guides():
 async def support_agent_replier(
     problem_description: str = Form(...),
     case_key: str | None = Form(None),
-    screenshots: list[UploadFile] = File(default=[])
+    screenshots: list[UploadFile] = File(default=[]),
+    email_thread: str = Form(...),
 ):
     kb_context = get_kb_context_analyzer(case_key)
     print(case_key)
+    print(email_thread)
     screenshot_context = ""
     if screenshots:
         screenshot_context = f"\nScreenshots attached: {len(screenshots)}.\n"
@@ -92,7 +94,8 @@ Resolution steps:
     reply = generate_support_reply_analyzer(
         problem_description=problem_description + screenshot_context,
         resolution_guidance=resolution_guidance,
-        kb_context=kb_context
+        kb_context=kb_context,
+        email_thread=email_thread
     )
 
     return {
