@@ -321,6 +321,14 @@ def update_case_summary(payload: UpdateSummaryRequest):
         summary_sections.append(
             "**Email Analysis**:\n" + "\n".join(email_parts) + "\n"
         )
+        
+    language = analysis.get("language")
+
+    if language:
+        summary_sections.insert(
+            0,
+            f"**Language:**\n{language}\n"
+        )
 
     # 🧠 Final case summary
     analysis["case_summary"] = "\n\n".join(summary_sections)
@@ -332,7 +340,10 @@ def update_case_summary(payload: UpdateSummaryRequest):
     analysis["selected_case_key"] = case_key
     analysis["suggested_case_keys"] = [case_key]
     analysis["ready_for_resolution"] = True
-
+    # ✅ Preserve language explicitly
+    if language:
+        analysis["language"] = language
+        
     # ❌ Explicitly ignore these fields
     analysis.pop("suggested_case_keys", None)
     analysis.pop("ready_for_resolution", None)

@@ -20,7 +20,7 @@ export default function CaseAnalyzerPage() {
   const [loadingGuides, setLoadingGuides] = useState(false);
   const [informationStatus, setInformationStatus] = useState<
     "edit" | "supplier" | "customer" | "connection" | "email" | "summary" | null
-  >(null);
+  >("edit");
   useEffect(() => {
     const fetchResolutionGuides = async () => {
       try {
@@ -132,6 +132,7 @@ export default function CaseAnalyzerPage() {
       // Errores en caso la IA no encuentre un campo especifico.
       const normalizedAnalysis = {
         case_summary: "",
+        language: "",
         generated_problem_description: "",
         extra_information: "",
         detected_issue: "",
@@ -694,7 +695,24 @@ export default function CaseAnalyzerPage() {
               <h2 className="font-semibold mb-2">
                 🖼️ Edit the case summary and add more context
               </h2>
+              <div>
+                  <label className="text-sm font-medium block mb-1">
+                    🌎 Reply language
+                  </label>
+                  <input
+                    className="border p-2 w-full rounded"
+                    placeholder="Language"
+                    value={analysis.language || ""}
+                    defaultValue={"English"}
+                    onChange={(e) =>
+                      updateField("language", e.target.value)
+                    }
+                  />
+                </div>
 
+              <label className="text-sm font-medium block mb-1">
+                    Case Summary
+                  </label>
               <textarea
                 className="border p-2 w-full h-28"
                 placeholder="Describe the error or reference any screenshot provided..."
